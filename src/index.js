@@ -12,9 +12,6 @@ inputArea.addEventListener('input', debounce(event => {
     fetchCountries(event.target.value.trim())
       .then(country => {
         clearPage();
-
-        console.log(country.length);
-
         if (country.length > 10) {
           Notify.info('Too many matches found. Please enter a more specific name.');
         } else if (country.length > 1) {
@@ -34,20 +31,19 @@ function renderCountries(countries) {
     return `
     <li class="country-list__item">
       <div class="country-container">
-        <img class="country-info__flag" src="${flags.svg}" alt="${flags.alt}" />
+        <img class="country-info__flag" width="55px" src="${flags.svg}" alt="${flags.alt} />
         <h2 class="country-info__title">${name.official}</h2>
       </div>
     </li>`
   });
   countryList.insertAdjacentHTML('beforeend', markup.join(' '));
-  console.log(markup);
 };
 
 function renderCountry({ flags, name, capital, population, languages }) {
   const leng = Object.values(languages).join(', ');
   const markup = `
   <div class="country-container">
-    <img class="country-info__flag" src="${flags.svg}" alt="${flags.alt}" />
+    <img class="country-info__flag" width="75px" src="${flags.svg}" alt="${flags.alt}" />
     <h2 class="country-info__title">${name.official}</h2>
   </div>
     <p class="country-info__capital">
