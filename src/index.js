@@ -1,4 +1,5 @@
 import './css/styles.css';
+import debounce from 'lodash.debounce';
 import { fetchCountries } from '../src/js/fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
@@ -6,11 +7,11 @@ const inputArea = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
-inputArea.addEventListener('input', (event) => {
+inputArea.addEventListener('input', debounce((event) => {
     fetchCountries(event.currentTarget.value.trim())
         .then((country) => renderCountry(country[0]))
         .catch((error) => console.log(error));
-});
+}, DEBOUNCE_DELAY));
 
 
 function renderCountry({ flags, name, capital, population, languages }) {
